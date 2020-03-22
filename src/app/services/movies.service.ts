@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ResponseApi } from '../interfaces/movie';
+import { ResponseApi, MovieDetail, ResponseCredits } from '../interfaces/movie';
 import { environment } from '../../environments/environment';
 
 const urlApi: string = environment.urlApi;
@@ -20,6 +20,10 @@ export class MoviesService {
 
 	execQuery<T>(query: string) {
 		return this.http.get<T>(`${urlApi}/${query}&api_key=${apiKey}&language=${language}&include_image_language=${language}`);
+	}
+
+	execQueryDetail<T>(query: string) {
+		return this.http.get<T>(`${urlApi}/${query}?api_key=${apiKey}`);
 	}
 
 	getFeature() {
@@ -48,6 +52,15 @@ export class MoviesService {
 		this.popularPage++;
 		const query = `discover/movie?sort_by=popularity.desc&page=${this.popularPage}`;
 		return this.execQuery<ResponseApi>(query);
+	}
+
+	getMovieDetail(id: string) {
+		return this.execQuery<MovieDetail>(`movie/${id}?`);
+	}
+
+	getActorsMovie(movie_id) {
+		const query = `movie/${movie_id}/credits`;
+		return this.execQueryDetail<ResponseCredits>(query);
 	}
 
 }
