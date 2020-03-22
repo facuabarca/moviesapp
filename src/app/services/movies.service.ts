@@ -38,8 +38,14 @@ export class MoviesService {
 
 		const initDate = `${today.getFullYear()}-${monthString}-01`;
 		const endDate = `${today.getFullYear()}-${monthString}-${lastDay}`;
-		
+
 		return this.execQuery<ResponseApi>(`discover/movie?primary_release_date.gte=${initDate}&primary_release_date.lte=${endDate}`);
 	}
+
+	getPopularMovies() {
+		const query = 'discover/movie?sort_by=popularity.desc';
+		return this.execQuery<ResponseApi>(query);
+	}
+
 }
 

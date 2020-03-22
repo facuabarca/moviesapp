@@ -8,7 +8,7 @@ import { Movie } from 'src/app/interfaces/movie';
 })
 export class SlideshowPosterComponent implements OnInit {
 	
-	@Input() recentMovies: Movie[] = [];
+	@Input() movies: Movie[] = [];
 
 	slideOpts = {
 		initialSlide: 1,

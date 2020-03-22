@@ -8,7 +8,7 @@ import { Movie } from '../../interfaces/movie';
 })
 export class SlideshowBackdropComponent implements OnInit {
 
-	@Input() recentMovies: Movie[] = [];
+	@Input() movies: Movie[] = [];
 	
 	slideOpts = {
 		initialSlide: 1,
