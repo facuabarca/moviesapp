@@ -18,7 +18,8 @@ import { SlideshowPosterComponent } from './slideshow-poster/slideshow-poster.co
 	PipesModule
   ],
   exports: [
-	  SlideshowBackdropComponent
+	  SlideshowBackdropComponent,
+	  SlideshowPosterComponent
   ]
 })
 export class ComponentsModule { }
