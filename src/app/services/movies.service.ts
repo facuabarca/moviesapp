@@ -12,6 +12,8 @@ const language: string = 'es';
 })
 export class MoviesService {
 
+	private popularPage: number = 0;
+
 	constructor(private http: HttpClient) {
 
 	}
@@ -43,7 +45,8 @@ export class MoviesService {
 	}
 
 	getPopularMovies() {
-		const query = 'discover/movie?sort_by=popularity.desc';
+		this.popularPage++;
+		const query = `discover/movie?sort_by=popularity.desc&page=${this.popularPage}`;
 		return this.execQuery<ResponseApi>(query);
 	}
 
