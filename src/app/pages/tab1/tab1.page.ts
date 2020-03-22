@@ -11,13 +11,6 @@ export class Tab1Page implements OnInit {
 
 	recentMovies: Movie[] = [];
 
-	slideOpts = {
-		initialSlide: 1,
-		speed: 400,
-		slidesPerView: 1.2,
-		freeMode: true
-	};
-
 	constructor(private movieService: MoviesService) { 
 		
 	}
