@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseApi } from '../interfaces/movie';
+import { environment } from '../../environments/environment';
+
+const urlApi: string = environment.urlApi;
+const apiKey: string = environment.apiKey;
+const language: string = 'es';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,13 +16,30 @@ export class MoviesService {
 
 	}
 
-	execQuery<T>() {
-		return this.http.get<T>(`https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2018-09-15&primary_release_date.lte=2018-10-22&api_key=3a964a0914758db48d3a98862667c5a1&language=es&include_image_language=es`);
+	execQuery<T>(query: string) {
+		return this.http.get<T>(`${urlApi}/${query}&api_key=${apiKey}&language=${language}&include_image_language=${language}`);
 	}
 
 	getFeature() {
-		return this.execQuery<ResponseApi>();
-		// return this.http.get(`https://api.themoviedb.org/3/discover/movie?primary_release_date.gte=2018-09-15&primary_release_date.lte=2018-10-22&api_key=3a964a0914758db48d3a98862667c5a1&language=es&include_image_language=es`);
+
+		const today = new Date();
+
+		const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+		const actualMonth = today.getMonth() + 1;
+
+		let monthString;
+
+		if (actualMonth < 10) {
+			monthString = '0' + actualMonth;
+		} else {
+			monthString = actualMonth;
+		}
+
+		const initDate = `${today.getFullYear()}-${monthString}-01`;
+		const endDate = `${today.getFullYear()}-${monthString}-${lastDay}`;
+		
+		return this.execQuery<ResponseApi>(`discover/movie?primary_release_date.gte=${initDate}&primary_release_date.lte=${endDate}`);
 	}
 }
 
