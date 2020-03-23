@@ -63,5 +63,10 @@ export class MoviesService {
 		return this.execQueryDetail<ResponseCredits>(query);
 	}
 
+	searchMovie(value: string) {
+		const query =`search/movie?query=${value}`;
+		return this.execQuery<any>(query);
+	}
+
 }
 
